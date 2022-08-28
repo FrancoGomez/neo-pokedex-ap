@@ -42,3 +42,11 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.page-navigation-option:hover {
+    cursor: pointer;
+}
+
+.disabled:hover {
+    cursor: default;
+}
