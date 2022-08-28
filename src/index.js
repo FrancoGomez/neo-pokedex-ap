@@ -9,6 +9,9 @@ const POKEMON_PER_PAGE = 20;
 const init = () => {
     createPokemonCards(0);
     createPageNavitationOptions();
+    $pagination.onclick = (e) => {
+        handlePaginationClick(e.target);
+    };
 };
 
 const getPokemonList = async (pageNumber) => {
@@ -94,24 +97,114 @@ const createPageNavitationOptions = () => {
 
 const createNavigationOption = (textContent) => {
     const $pageOption = document.createElement("li");
-    $pageOption.className = "page-item";
+    $pageOption.className = "page-item page-navigation-option";
+    $pageOption.setAttribute("id", `button-${textContent}`);
 
     if (textContent === "Previous") {
         $pageOption.classList.add("disabled");
     }
 
-    const $pageLinkOption = document.createElement("a");
-    $pageLinkOption.className = "page-link option";
-    $pageLinkOption.setAttribute("href", "#")
-    $pageLinkOption.textContent = textContent;
-
     if (typeof textContent === "number") {
-        $pageLinkOption.classList.add("option");
+        $pageOption.classList.add("option");
+
+        if (textContent === 1) {
+            $pageOption.classList.add("active");
+        }
     }
+
+    const $pageLinkOption = document.createElement("a");
+    $pageLinkOption.className = "page-link";
+
+    $pageLinkOption.textContent = textContent;
 
     $pageOption.appendChild($pageLinkOption);
 
     return $pageOption;
+};
+
+const handlePaginationClick = (button) => {
+    if (
+        button.classList.contains("disabled") ||
+        button.classList.contains("active")
+    )
+        return;
+
+    handlePaginationState(button);
+    handlePaginationButtonRequest();
+};
+
+const handlePaginationState = (button) => {
+    if (button.textContent === "Previous") {
+        const activeButton = document.querySelector(".active");
+
+        toggleActive(activeButton);
+        toggleActive(activeButton.previousSibling);
+
+        if (activeButton.id === "button-1") {
+            const $previousButton = document.querySelector("#button-Previous");
+            toggleDisable($previousButton);
+        }
+
+        if (activeButton.previousSibling.id === "button-44") {
+            const $nextButton = document.querySelector("#button-Next");
+            toggleDisable($nextButton);
+        }
+    } else if (!isNaN(button.textContent)) {
+        const activeButton = document.querySelector(".active");
+
+        toggleActive(activeButton);
+
+        if (button.className === "page-link") {
+            toggleActive(button.parentElement);
+        } else {
+            toggleActive(button);
+        }
+
+        if (activeButton.id === "button-1") {
+            const $previousButton = document.querySelector("#button-Previous");
+            toggleDisable($previousButton);
+        }
+
+        if (activeButton.id === "button-45") {
+            const $nextButton = document.querySelector("#button-Next");
+            toggleDisable($nextButton);
+        }
+    } else if (button.textContent === "Next") {
+        const activeButton = document.querySelector(".active");
+
+        toggleActive(activeButton);
+        toggleActive(activeButton.nextSibling);
+
+        if (activeButton.id === "button-45") {
+            const $nextButton = document.querySelector("#button-Next");
+            toggleDisable($nextButton);
+        }
+
+        if (activeButton.nextSibling.id === "button-1") {
+            const $previousButton = document.querySelector("#button-Previous");
+            toggleDisable($previousButton);
+        }
+    }
+};
+
+const handlePaginationButtonRequest = () => {
+    const activeButton = document.querySelector(".active");
+    const numberIdActiveButton = Number(activeButton.id.replace("button-", ""));
+
+    deletePokemonCardsContainer();
+    createPokemonCards(numberIdActiveButton - 1);
+};
+
+const deletePokemonCardsContainer = () => {
+    $pokemonCardsContainerContainer.children[0].remove();
+};
+
+const toggleDisable = ($element) => {
+    $element.classList.toggle("disabled");
+};
+
+const toggleActive = ($element) => {
+    $element.classList.toggle("active");
 };
 
 init();
