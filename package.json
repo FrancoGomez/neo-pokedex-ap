@@ -1,0 +1,22 @@
+{
+  "name": "neo-pokedex-ap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrancoGomez/neo-pokedex-ap.git"
+  },
+  "author": "Franco Gomez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FrancoGomez/neo-pokedex-ap/issues"
+  },
+  "homepage": "https://github.com/FrancoGomez/neo-pokedex-ap#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.0"
+  }
+}
