@@ -40,6 +40,8 @@ const returnPokemonCards = (arrayPokemon) => {
         const { name, url } = object;
         const id = url.replace("v2", "").replace(/\D/g, "");
 
+        if (id > POKEMON_COUNT) break;
+
         const $pokemonCard = returnPokemonCard(name, id);
         $pokemonCardsContainer.appendChild($pokemonCard);
     }
