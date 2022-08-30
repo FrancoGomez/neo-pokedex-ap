@@ -308,9 +308,11 @@ const resetModalState = () => {
     $namePokemonModal.textContent = "Loading...";
     toggleHidden($alertLoading);
 
-    if ($alertPokemonNotFound.classList.contains("hidden")) {
+    if (!$cardPokemonModal.classList.contains("hidden")) {
         toggleHidden($cardPokemonModal);
-    } else {
+    }
+
+    if (!$alertPokemonNotFound.classList.contains("hidden")) {
         toggleHidden($alertPokemonNotFound);
     }
 };
