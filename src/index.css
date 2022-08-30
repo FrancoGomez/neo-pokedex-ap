@@ -21,6 +21,10 @@
     height: 180px;
 }
 
+.pokemon-card__image:hover {
+    cursor: pointer;
+}
+
 .pokemon-card__body h2 {
     text-transform: capitalize;
     text-align: center;
@@ -49,4 +53,25 @@
 
 .disabled:hover {
     cursor: default;
+}
+
+.pokemon-modal .modal-dialog {
+    max-width: 288px;
+}
+
+.pokemon-modal__image {
+    image-rendering: crisp-edges;
+}
+
+#pokemon-modal__pokemon-name,
+#pokemon-modal__pokemon-types {
+    text-transform: capitalize;
+}
+
+.pokemon-modal .modal-body {
+    padding: 0;
+}
+
+.hidden {
+    display: none;
 }
