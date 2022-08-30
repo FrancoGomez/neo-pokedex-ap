@@ -1,7 +1,31 @@
+const $inputSearchPokemon = document.querySelector(".search-pokemon__input");
+const $buttonSearchPokemon = document.querySelector(".search-pokemon__button");
 const $pokemonCardsContainerContainer = document.querySelector(
     ".pokemon-cards-container-container"
 );
 const $pagination = document.querySelector("#pagination");
+
+const $namePokemonModal = document.querySelector(
+    "#pokemon-modal__pokemon-name"
+);
+const $imagePokemonModal = document.querySelector(
+    "#pokemon-modal__pokemon-image"
+);
+const $weightPokemonModal = document.querySelector(
+    "#pokemon-modal__pokemon-weight"
+);
+const $heightPokemonModal = document.querySelector(
+    "#pokemon-modal__pokemon-height"
+);
+const $typesPokemonModal = document.querySelector(
+    "#pokemon-modal__pokemon-types"
+);
+const $pokemonModal = document.querySelector("#pokemon-modal");
+const $cardPokemonModal = document.querySelector("#pokemon-modal__card");
+const $alertPokemonNotFound = document.querySelector(
+    "#alert-pokemon-not-found"
+);
+const $alertLoading = document.querySelector("#alert-loading");
 
 const POKEMON_COUNT = 898;
 const POKEMON_PER_PAGE = 20;
@@ -11,6 +35,9 @@ const init = () => {
     createPageNavitationOptions();
     $pagination.onclick = (e) => {
         handlePaginationClick(e.target);
+    };
+    $buttonSearchPokemon.onclick = () => {
+        handleSearch();
     };
 };
 
@@ -35,6 +62,10 @@ const returnPokemonCards = (arrayPokemon) => {
     const $pokemonCardsContainer = document.createElement("div");
     $pokemonCardsContainer.className = "pokemon-cards-container";
 
+    $pokemonCardsContainer.onclick = (e) => {
+        handlePokemonCardClick(e.target);
+    };
+
     for (const object of arrayPokemon) {
         // \D matches a character that is not a numerical digit.
         const { name, url } = object;
@@ -57,6 +88,9 @@ const returnPokemonCard = (name, id) => {
     const $pokemonCardImage = document.createElement("img");
     $pokemonCardImage.className = "card-img-top pokemon-card__image";
     $pokemonCardImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+    $pokemonCardImage.setAttribute("data-bs-toggle", "modal");
+    $pokemonCardImage.setAttribute("data-bs-target", "#pokemon-modal");
+
     $pokemonCardImage.setAttribute("alt", name);
 
     const $pokemonCardBody = document.createElement("div");
@@ -197,8 +231,88 @@ const handlePaginationButtonRequest = () => {
     createPokemonCards(numberIdActiveButton - 1);
 };
 
+const handleSearch = async () => {
+    const query = $inputSearchPokemon.value;
+
+    if (query === "") return;
+
+    const pokemonInfo = await getPokemonInfo(query);
+
+    if (pokemonInfo === undefined) return;
+
+    showNewPokemonModal(pokemonInfo);
+};
+
+const handlePokemonCardClick = async (target) => {
+    if (target.classList.contains("pokemon-card__image")) {
+        const pokemonInfo = await getPokemonInfo(target.alt);
+        showNewPokemonModal(pokemonInfo);
+    }
+};
+
+const showNewPokemonModal = ({ name, id, weight, height, types }) => {
+    $namePokemonModal.textContent = `${name} #${id
+        .toString()
+        .padStart(3, "0")}`;
+    $imagePokemonModal.src = getPokemonImage(id);
+    $weightPokemonModal.textContent = `Weight: ${weight / 10}kg`;
+    $heightPokemonModal.textContent = `Height: ${height / 10}m`;
+    $typesPokemonModal.textContent = "Type: ";
+
+    if (types.length > 1) {
+        $typesPokemonModal.textContent = "Types: ";
+    }
+
+    types.forEach((type, index) => {
+        if (index !== 0) {
+            $typesPokemonModal.textContent += ", ";
+        }
+        $typesPokemonModal.textContent += type.type.name;
+    });
+
+    toggleHidden($cardPokemonModal);
+    toggleHidden($alertLoading);
+};
+
+const getPokemonInfo = async (id) => {
+    const pokemonInfo = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+
+    if (pokemonInfo.status === 200) {
+        return pokemonInfo.json();
+    } else {
+        showErrorPokemonNotFound();
+    }
+};
+
+const editPokemonModal = () => {};
+
 const deletePokemonCardsContainer = () => {
     $pokemonCardsContainerContainer.children[0].remove();
+};
+
+const getPokemonImage = (id) => {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+};
+
+const showErrorPokemonNotFound = () => {
+    $namePokemonModal.textContent = "Error";
+    toggleHidden($alertLoading);
+    toggleHidden($alertPokemonNotFound);
+};
+
+$pokemonModal.addEventListener("hidden.bs.modal", () => {
+    resetModalState();
+});
+
+const resetModalState = () => {
+    $namePokemonModal.textContent = "Loading...";
+    toggleHidden($alertLoading);
+
+    if ($alertPokemonNotFound.classList.contains("hidden")) {
+        toggleHidden($cardPokemonModal);
+    } else {
+        toggleHidden($alertPokemonNotFound);
+    }
 };
 
 const toggleDisable = ($element) => {
@@ -207,6 +321,10 @@ const toggleDisable = ($element) => {
 
 const toggleActive = ($element) => {
     $element.classList.toggle("active");
+};
+
+const toggleHidden = ($element) => {
+    $element.classList.toggle("hidden");
 };
 
 init();
