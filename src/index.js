@@ -236,7 +236,7 @@ const handleSearch = async () => {
 
     if (query === "") return;
 
-    const pokemonInfo = await getPokemonInfo(query);
+    const pokemonInfo = await getPokemonInfo(query.toLowerCase());
 
     if (pokemonInfo === undefined) return;
 
