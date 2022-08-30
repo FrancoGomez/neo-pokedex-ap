@@ -19,17 +19,94 @@
                 <a class="navbar-brand" href="#">Pokedex</a>
                 <form class="d-flex" role="search">
                     <input
-                        class="form-control me-2"
+                        class="form-control me-2 search-pokemon__input"
                         type="search"
                         placeholder="Search by name or id"
                         aria-label="Search"
                     />
-                    <button class="btn btn-outline-primary" type="submit">
+                    <button
+                        class="btn btn-outline-primary search-pokemon__button"
+                        type="submit"
+                        data-bs-toggle="modal"
+                        data-bs-target="#pokemon-modal"
+                    >
                         Search
                     </button>
                 </form>
             </div>
         </nav>
+
+        <div class="modal pokemon-modal" tabindex="-1" id="pokemon-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5
+                            class="modal-title"
+                            id="pokemon-modal__pokemon-name"
+                        >
+                            Loading...
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center">
+                        <div
+                            class="card border-0 hidden"
+                            style="width: 18rem"
+                            id="pokemon-modal__card"
+                        >
+                            <img
+                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                                class="card-img-top pokemon-modal__image"
+                                alt="pokemon"
+                                id="pokemon-modal__pokemon-image"
+                            />
+                            <div
+                                class="card-body bg-primary text-white rounded-bottom"
+                            >
+                                <p
+                                    class="card-text text-center"
+                                    id="pokemon-modal__pokemon-weight"
+                                >
+                                    Weight: 20kg
+                                </p>
+                                <p
+                                    class="card-text text-center"
+                                    id="pokemon-modal__pokemon-height"
+                                >
+                                    Height: 1m
+                                </p>
+                                <p
+                                    class="card-text text-center"
+                                    id="pokemon-modal__pokemon-types"
+                                >
+                                    Types: Grass Venom
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="alert alert-primary m-3 w-100"
+                            id="alert-loading"
+                            role="alert"
+                        >
+                            Loading...
+                        </div>
+
+                        <div
+                            class="alert alert-danger m-3 w-100 hidden"
+                            id="alert-pokemon-not-found"
+                            role="alert"
+                        >
+                            Pokemon not found!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="pokemon-cards-container-container">
             <!-- Pokemon Cards -->
@@ -37,9 +114,7 @@
 
         <div class="pagination-container">
             <nav aria-label="...">
-                <ul class="pagination" id="pagination">
-                    
-                </ul>
+                <ul class="pagination" id="pagination"></ul>
             </nav>
         </div>
 
