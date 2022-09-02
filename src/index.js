@@ -36,7 +36,8 @@ const init = () => {
     $pagination.onclick = (e) => {
         handlePaginationClick(e.target);
     };
-    $buttonSearchPokemon.onclick = () => {
+    $buttonSearchPokemon.onclick = (e) => {
+        e.preventDefault();
         handleSearch();
     };
 };
