@@ -18,5 +18,8 @@
   "homepage": "https://github.com/FrancoGomez/neo-pokedex-ap#readme",
   "dependencies": {
     "bootstrap": "^5.2.0"
+  },
+  "devDependencies": {
+    "cypress": "^10.7.0"
   }
 }
