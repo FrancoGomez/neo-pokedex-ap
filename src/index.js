@@ -31,7 +31,7 @@ const POKEMON_COUNT = 898;
 const POKEMON_PER_PAGE = 20;
 
 const init = () => {
-    createPokemonCards(0);
+    createPokemonCards();
     createPageNavitationOptions();
     $pagination.onclick = (e) => {
         handlePaginationClick(e.target);
@@ -52,7 +52,7 @@ const getPokemonList = async (pageNumber) => {
     return pokemonList.json();
 };
 
-const createPokemonCards = async (pageNumber) => {
+const createPokemonCards = async (pageNumber = 0) => {
     const { results } = await getPokemonList(pageNumber);
     const $pokemonCardsContainer = returnPokemonCards(results);
 
