@@ -173,22 +173,10 @@ const handlePaginationClick = (button) => {
 const handlePaginationState = (button) => {
     if (button.textContent === "Previous") {
         const activeButton = document.querySelector(".active");
-
         toggleActive(activeButton);
         toggleActive(activeButton.previousSibling);
-
-        if (activeButton.id === "button-1") {
-            const $previousButton = document.querySelector("#button-Previous");
-            toggleDisable($previousButton);
-        }
-
-        if (activeButton.previousSibling.id === "button-44") {
-            const $nextButton = document.querySelector("#button-Next");
-            toggleDisable($nextButton);
-        }
     } else if (!isNaN(button.textContent)) {
         const activeButton = document.querySelector(".active");
-
         toggleActive(activeButton);
 
         if (button.className === "page-link") {
@@ -196,31 +184,27 @@ const handlePaginationState = (button) => {
         } else {
             toggleActive(button);
         }
-
-        if (activeButton.id === "button-1") {
-            const $previousButton = document.querySelector("#button-Previous");
-            toggleDisable($previousButton);
-        }
-
-        if (activeButton.id === "button-45") {
-            const $nextButton = document.querySelector("#button-Next");
-            toggleDisable($nextButton);
-        }
     } else if (button.textContent === "Next") {
         const activeButton = document.querySelector(".active");
 
         toggleActive(activeButton);
         toggleActive(activeButton.nextSibling);
+    }
 
-        if (activeButton.id === "button-45") {
-            const $nextButton = document.querySelector("#button-Next");
-            toggleDisable($nextButton);
-        }
+    const $previousButton = document.querySelector("#button-Previous");
+    const $nextButton = document.querySelector("#button-Next");
+    const activeButton = document.querySelector(".active");
 
-        if (activeButton.nextSibling.id === "button-1") {
-            const $previousButton = document.querySelector("#button-Previous");
-            toggleDisable($previousButton);
-        }
+    if (activeButton.id === "button-1") {
+        toggleDisable($previousButton);
+    } else if ($previousButton.classList.contains("disabled")) {
+        toggleDisable($previousButton);
+    }
+
+    if (activeButton.id === "button-45") {
+        toggleDisable($nextButton);
+    } else if ($nextButton.classList.contains("disabled")) {
+        toggleDisable($nextButton);
     }
 };
 
