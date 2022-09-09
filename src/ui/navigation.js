@@ -1,7 +1,7 @@
 import { getPokemonInfo } from "../api.js";
 import { showErrorPokemonNotFound, showNewPokemonModal } from "./modal.js";
 
-export const handleSearch = async () => {
+const handleSearch = async () => {
     const $inputSearchPokemon = document.querySelector(
         ".search-pokemon__input"
     );
@@ -15,4 +15,13 @@ export const handleSearch = async () => {
     if (pokemonInfo === undefined) return showErrorPokemonNotFound();
 
     showNewPokemonModal(pokemonInfo);
+};
+
+export const initNavigationFunction = () => {
+    const $searchButton = document.querySelector(".search-pokemon__button");
+
+    $searchButton.onclick = (e) => {
+        e.preventDefault();
+        handleSearch();
+    };
 };
