@@ -1,4 +1,4 @@
-export const getPokemonList = async (pageNumber) => {
+export const getPokemonList = async (pageNumber = 0) => {
     const POKEMON_PER_PAGE = 20;
 
     const pokemonList = await fetch(
