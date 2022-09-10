@@ -1,5 +1,5 @@
 import { toggleDisable, toggleActive } from "../utilities/utilities.js";
-import { deletePokemonCardsContainer, createPokemonCards } from "./cards.js";
+import { deletePokemonCardsContainer, showPokemonCards } from "./cards.js";
 
 export const createPageNavigationOptions = () => {
     const POKEMON_COUNT = 898;
@@ -111,5 +111,5 @@ const handlePaginationButtonRequest = () => {
     const pageIndex = numberIdActiveButton - 1;
 
     deletePokemonCardsContainer();
-    createPokemonCards(pageIndex);
+    showPokemonCards(pageIndex);
 };
