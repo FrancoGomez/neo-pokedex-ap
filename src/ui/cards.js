@@ -1,12 +1,10 @@
 import { getPokemonList, getPokemonInfo, getPokemonImage } from "../api.js";
 import { showNewPokemonModal, showErrorPokemonNotFound } from "./modal.js";
 
-export const createPokemonCards = async (pageNumber = 0) => {
+export const createPokemonCards = async (pageNumber, results) => {
     const $pokemonCardsContainerContainer = document.querySelector(
         ".pokemon-cards-container-container"
     );
-
-    const { results } = await getPokemonList(pageNumber);
     const $pokemonCardsContainer = returnPokemonCards(results);
 
     $pokemonCardsContainerContainer.appendChild($pokemonCardsContainer);
@@ -70,11 +68,7 @@ const returnPokemonCard = (name, id) => {
 
 const handlePokemonCardClick = async (target) => {
     if (target.classList.contains("pokemon-card__image")) {
-        const pokemonInfo = await getPokemonInfo(target.alt);
-
-        if (pokemonInfo === undefined) return showErrorPokemonNotFound();
-
-        showNewPokemonModal(pokemonInfo);
+        showNewPokemonModal(target.alt);
     }
 };
 
@@ -84,4 +78,9 @@ export const deletePokemonCardsContainer = () => {
     );
 
     $pokemonCardsContainerContainer.children[0].remove();
+};
+
+export const showPokemonCards = async (pageNumber = 0) => {
+    const { results } = await getPokemonList(pageNumber);
+    createPokemonCards(0, results);
 };
