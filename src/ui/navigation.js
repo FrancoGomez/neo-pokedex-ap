@@ -10,11 +10,7 @@ const handleSearch = async () => {
 
     if (query === "") return;
 
-    const pokemonInfo = await getPokemonInfo(query.toLowerCase());
-
-    if (pokemonInfo === undefined) return showErrorPokemonNotFound();
-
-    showNewPokemonModal(pokemonInfo);
+    showNewPokemonModal(query.toLowerCase());
 };
 
 export const initNavigationFunction = () => {
