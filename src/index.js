@@ -1,10 +1,10 @@
 import { initNavigationFunction } from "./ui/navigation.js";
-import { createPokemonCards } from "./ui/cards.js";
+import { showPokemonCards } from "./ui/cards.js";
 import { createPageNavigationOptions } from "./ui/paginator.js";
 
 const init = () => {
     initNavigationFunction();
-    createPokemonCards();
+    showPokemonCards();
     createPageNavigationOptions();
 };
 
