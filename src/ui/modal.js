@@ -1,4 +1,4 @@
-import { getPokemonImage } from "../api.js";
+import { getPokemonImage, getPokemonInfo } from "../api.js";
 import { toggleHidden } from "../utilities/utilities.js";
 
 const $namePokemonModal = document.querySelector(
@@ -15,7 +15,7 @@ $pokemonModal.addEventListener("hidden.bs.modal", () => {
     resetModalState();
 });
 
-export const showNewPokemonModal = ({ name, id, weight, height, types }) => {
+const createPokemonModal = ({ name, id, weight, height, types }) => {
     const $imagePokemonModal = document.querySelector(
         "#pokemon-modal__pokemon-image"
     );
@@ -69,4 +69,12 @@ export const resetModalState = () => {
     if (!$alertPokemonNotFound.classList.contains("hidden")) {
         toggleHidden($alertPokemonNotFound);
     }
+};
+
+export const showNewPokemonModal = async (pokemonId) => {
+    const pokemonInfo = await getPokemonInfo(pokemonId );
+
+    if (pokemonInfo === undefined) return showErrorPokemonNotFound();
+
+    createPokemonModal(pokemonInfo);
 };
