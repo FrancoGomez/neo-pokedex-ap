@@ -23,7 +23,3 @@ export const getPokemonInfo = async (id) => {
 
     return;
 };
-
-export const getPokemonImage = (id) => {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-};
