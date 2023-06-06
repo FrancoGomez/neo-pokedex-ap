@@ -63,6 +63,8 @@ export const showNewPokemonModal = async (pokemonId) => {
   editPokemonModal(pokemonInfo);
   showElement($cardPokemonModal);
   hideElement($alertLoading);
+
+  return null;
 };
 
 export const resetModalState = () => {
