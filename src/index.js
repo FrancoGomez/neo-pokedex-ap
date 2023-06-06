@@ -1,11 +1,11 @@
-import { initNavigation } from "./ui/navigation.js";
-import { renderPokemonCards } from "./ui/cards.js";
-import { initPagination } from "./ui/paginator.js";
+import { initNavigation } from './ui/navigation.js';
+import { renderPokemonCards } from './ui/cards.js';
+import { initPagination } from './ui/paginator.js';
 
 const init = () => {
-    initNavigation();
-    renderPokemonCards();
-    initPagination();
+  initNavigation();
+  renderPokemonCards();
+  initPagination();
 };
 
 init();
