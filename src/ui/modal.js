@@ -62,7 +62,7 @@ export const showNewPokemonModal = async (pokemonId) => {
   if (!pokemonInfoCache) {
     const pokemonInfo = await getPokemonInfo(pokemonId);
 
-    if (pokemonInfo === undefined) return showErrorPokemonNotFound();
+    if (!pokemonInfo) return showErrorPokemonNotFound();
 
     savePokemonOnStorage(pokemonId, pokemonInfo);
 
