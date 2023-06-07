@@ -1,6 +1,7 @@
 import { getPokemonImage } from '../utilities/utilities.js';
 import { showNewPokemonModal } from './modal.js';
 import { getPokemonList } from '../api.js';
+import { savePageOnStorage, searchPageOnStorage } from '../storage/storage.js';
 
 const returnPokemonCard = (name, id) => {
   const $pokemonCard = document.createElement('article');
@@ -55,11 +56,26 @@ export const returnPokemonCards = (arrayPokemon) => {
   return $fragment;
 };
 
-export const renderPokemonCards = async (pageNumber = 0) => {
-  const { results } = await getPokemonList(pageNumber);
-  const $pokemonCards = returnPokemonCards(results);
+export const renderPokemonCards = async (pageNumber = 0, pokemonPerPage = 20) => {
+  const resultsCache = searchPageOnStorage(pageNumber, pokemonPerPage);
+
+  if (!resultsCache) {
+    const { results } = await getPokemonList(pageNumber, pokemonPerPage);
+
+    savePageOnStorage(pageNumber, pokemonPerPage, results);
+
+    const $pokemonCards = returnPokemonCards(results);
+
+    $pokemonCardsContainer.appendChild($pokemonCards);
+
+    return null;
+  }
+
+  const $pokemonCards = returnPokemonCards(resultsCache);
 
   $pokemonCardsContainer.appendChild($pokemonCards);
+
+  return null;
 };
 
 export const deletePokemonCards = () => {

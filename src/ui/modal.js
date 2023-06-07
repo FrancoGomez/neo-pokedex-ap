@@ -1,5 +1,6 @@
 import { getPokemonImage, hideElement, showElement } from '../utilities/utilities.js';
 import { getPokemonInfo } from '../api.js';
+import { savePokemonOnStorage, searchPokemonOnStorage } from '../storage/storage.js';
 
 export const editPokemonModal = ({
   name, id, weight, height, types,
@@ -56,11 +57,21 @@ export const showNewPokemonModal = async (pokemonId) => {
   const $cardPokemonModal = document.querySelector('#pokemon-modal__card');
   const $alertLoading = document.querySelector('#alert-loading');
 
-  const pokemonInfo = await getPokemonInfo(pokemonId);
+  const pokemonInfoCache = searchPokemonOnStorage(pokemonId);
 
-  if (pokemonInfo === undefined) return showErrorPokemonNotFound();
+  if (!pokemonInfoCache) {
+    const pokemonInfo = await getPokemonInfo(pokemonId);
 
-  editPokemonModal(pokemonInfo);
+    if (pokemonInfo === undefined) return showErrorPokemonNotFound();
+
+    savePokemonOnStorage(pokemonId, pokemonInfo);
+
+    editPokemonModal(pokemonInfo);
+    showElement($cardPokemonModal);
+    hideElement($alertLoading);
+  }
+
+  editPokemonModal(pokemonInfoCache);
   showElement($cardPokemonModal);
   hideElement($alertLoading);
 
