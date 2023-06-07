@@ -1,25 +1,23 @@
-export const getPokemonList = async (pageNumber = 0) => {
-    const POKEMON_PER_PAGE = 20;
+export const getPokemonList = async (pageNumber = 0, pokemonPerPage = 20) => {
+  const pokemonList = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?offset=${
+      pokemonPerPage * pageNumber
+    }&limit=${pokemonPerPage}`,
+  );
 
-    const pokemonList = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?offset=${
-            POKEMON_PER_PAGE * pageNumber
-        }&limit=${POKEMON_PER_PAGE}`
-    );
+  if (pokemonList.status === 200) {
+    return pokemonList.json();
+  }
 
-    if (pokemonList.status === 200) {
-        return pokemonList.json();
-    }
-
-    return;
+  return null;
 };
 
 export const getPokemonInfo = async (id) => {
-    const pokemonInfo = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const pokemonInfo = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
-    if (pokemonInfo.status === 200) {
-        return pokemonInfo.json();
-    }
+  if (pokemonInfo.status === 200) {
+    return pokemonInfo.json();
+  }
 
-    return;
+  return null;
 };
