@@ -1,28 +1,30 @@
 {
-  "name": "neo-pokedex-ap",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "cypress:open": "cypress open"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FrancoGomez/neo-pokedex-ap.git"
-  },
-  "author": "Franco Gomez",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FrancoGomez/neo-pokedex-ap/issues"
-  },
-  "homepage": "https://github.com/FrancoGomez/neo-pokedex-ap#readme",
-  "dependencies": {
-    "bootstrap": "^5.2.0"
-  },
-  "devDependencies": {
-    "cypress": "^10.7.0",
-    "eslint": "^8.42.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.27.5"
-  }
+    "name": "neo-pokedex-ap",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "cy:open": "cypress open --e2e -b electron",
+        "cy:test": "cypress run --spec cypress/e2e/pokedex.cy.js",
+        "cy:test-headed": "cypress run --spec cypress/e2e/pokedex.cy.js --headed --no-exit"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FrancoGomez/neo-pokedex-ap.git"
+    },
+    "author": "Franco Gomez",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/FrancoGomez/neo-pokedex-ap/issues"
+    },
+    "homepage": "https://github.com/FrancoGomez/neo-pokedex-ap#readme",
+    "dependencies": {
+        "bootstrap": "^5.2.0"
+    },
+    "devDependencies": {
+        "cypress": "^10.7.0",
+        "eslint": "^8.42.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.27.5"
+    }
 }
