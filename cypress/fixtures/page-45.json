@@ -1,0 +1,63 @@
+{
+    "count": 1281,
+    "next": "https://pokeapi.co/api/v2/pokemon?offset=900&limit=20",
+    "previous": "https://pokeapi.co/api/v2/pokemon?offset=860&limit=20",
+    "results": [
+        {
+            "name": "arctozolt",
+            "url": "https://pokeapi.co/api/v2/pokemon/881/"
+        },
+        {
+            "name": "dracovish",
+            "url": "https://pokeapi.co/api/v2/pokemon/882/"
+        },
+        {
+            "name": "arctovish",
+            "url": "https://pokeapi.co/api/v2/pokemon/883/"
+        },
+        {
+            "name": "duraludon",
+            "url": "https://pokeapi.co/api/v2/pokemon/884/"
+        },
+        { "name": "dreepy", "url": "https://pokeapi.co/api/v2/pokemon/885/" },
+        { "name": "drakloak", "url": "https://pokeapi.co/api/v2/pokemon/886/" },
+        {
+            "name": "dragapult",
+            "url": "https://pokeapi.co/api/v2/pokemon/887/"
+        },
+        { "name": "zacian", "url": "https://pokeapi.co/api/v2/pokemon/888/" },
+        {
+            "name": "zamazenta",
+            "url": "https://pokeapi.co/api/v2/pokemon/889/"
+        },
+        {
+            "name": "eternatus",
+            "url": "https://pokeapi.co/api/v2/pokemon/890/"
+        },
+        { "name": "kubfu", "url": "https://pokeapi.co/api/v2/pokemon/891/" },
+        {
+            "name": "urshifu-single-strike",
+            "url": "https://pokeapi.co/api/v2/pokemon/892/"
+        },
+        { "name": "zarude", "url": "https://pokeapi.co/api/v2/pokemon/893/" },
+        {
+            "name": "regieleki",
+            "url": "https://pokeapi.co/api/v2/pokemon/894/"
+        },
+        {
+            "name": "regidrago",
+            "url": "https://pokeapi.co/api/v2/pokemon/895/"
+        },
+        {
+            "name": "glastrier",
+            "url": "https://pokeapi.co/api/v2/pokemon/896/"
+        },
+        {
+            "name": "spectrier",
+            "url": "https://pokeapi.co/api/v2/pokemon/897/"
+        },
+        { "name": "calyrex", "url": "https://pokeapi.co/api/v2/pokemon/898/" },
+        { "name": "wyrdeer", "url": "https://pokeapi.co/api/v2/pokemon/899/" },
+        { "name": "kleavor", "url": "https://pokeapi.co/api/v2/pokemon/900/" }
+    ]
+}
