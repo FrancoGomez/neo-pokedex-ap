@@ -231,7 +231,7 @@ describe("Check if a correct search will give show the correct pokemon", () => {
     it("Click the search button", () => {
         cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/pikachu", {
             fixture: "pokemon-25.json",
-        })
+        });
 
         cy.get(".search-pokemon__button").click();
     });
