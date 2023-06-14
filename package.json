@@ -6,7 +6,8 @@
     "scripts": {
         "cy:open": "cypress open --e2e -b electron",
         "cy:test": "cypress run --spec cypress/e2e/pokedex.cy.js",
-        "cy:test-headed": "cypress run --spec cypress/e2e/pokedex.cy.js --headed --no-exit"
+        "cy:test-headed": "cypress run --spec cypress/e2e/pokedex.cy.js --headed --no-exit",
+        "jest:test": "jest"
     },
     "repository": {
         "type": "git",
@@ -22,10 +23,15 @@
         "bootstrap": "^5.2.0"
     },
     "devDependencies": {
+        "@babel/cli": "^7.22.5",
+        "@babel/core": "^7.22.5",
+        "@babel/preset-env": "^7.22.5",
+        "@types/jest": "^29.5.2",
         "cypress": "^10.7.0",
         "eslint": "^8.42.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-cypress": "^2.13.3",
-        "eslint-plugin-import": "^2.27.5"
+        "eslint-plugin-import": "^2.27.5",
+        "jest": "^29.5.0"
     }
 }
