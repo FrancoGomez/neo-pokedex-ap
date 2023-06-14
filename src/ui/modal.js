@@ -1,9 +1,10 @@
-import { getPokemonImage, hideElement, showElement } from '../utilities/utilities.js';
+import { hideElement, showElement } from '../utilities/utilities.js';
 import { getPokemonInfo } from '../api.js';
 import { savePokemonOnStorage, searchPokemonOnStorage } from '../storage/storage.js';
+import mapPokemon from '../mappers/pokemon.js';
 
-export const editPokemonModal = ({
-  name, id, weight, height, types,
+export const editPokemonModal = async ({
+  imageURL, name, id, weight, height, types,
 }) => {
   const $namePokemonModal = document.querySelector(
     '#pokemon-modal__pokemon-name',
@@ -24,7 +25,7 @@ export const editPokemonModal = ({
   $namePokemonModal.textContent = `${name} #${id
     .toString()
     .padStart(3, '0')}`;
-  $imagePokemonModal.src = getPokemonImage(id);
+  $imagePokemonModal.src = imageURL;
   $weightPokemonModal.textContent = `Weight: ${weight / 10}kg`;
   $heightPokemonModal.textContent = `Height: ${height / 10}m`;
   $typesPokemonModal.textContent = 'Type: ';
@@ -37,7 +38,7 @@ export const editPokemonModal = ({
     if (index !== 0) {
       $typesPokemonModal.textContent += ', ';
     }
-    $typesPokemonModal.textContent += type.type.name;
+    $typesPokemonModal.textContent += type;
   });
 };
 
@@ -56,7 +57,6 @@ export const showErrorPokemonNotFound = () => {
 export const showNewPokemonModal = async (pokemonId) => {
   const $cardPokemonModal = document.querySelector('#pokemon-modal__card');
   const $alertLoading = document.querySelector('#alert-loading');
-
   const pokemonInfoCache = searchPokemonOnStorage(pokemonId);
 
   if (!pokemonInfoCache) {
@@ -64,11 +64,13 @@ export const showNewPokemonModal = async (pokemonId) => {
 
     if (!pokemonInfo) return showErrorPokemonNotFound();
 
-    savePokemonOnStorage(pokemonId, pokemonInfo);
+    savePokemonOnStorage(pokemonId, mapPokemon(pokemonInfo));
 
-    editPokemonModal(pokemonInfo);
+    editPokemonModal(mapPokemon(pokemonInfo));
     showElement($cardPokemonModal);
     hideElement($alertLoading);
+
+    return null;
   }
 
   editPokemonModal(pokemonInfoCache);
