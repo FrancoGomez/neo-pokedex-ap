@@ -1,16 +1,20 @@
-import { getPokemonImage } from '../utilities/utilities.js';
 import { showNewPokemonModal } from './modal.js';
 import { getPokemonList } from '../api.js';
 import { savePageOnStorage, searchPageOnStorage } from '../storage/storage.js';
+import mapPokemonList from '../mappers/pokemonList.js';
 
-const returnPokemonCard = (name, id) => {
+const $pokemonCardsContainer = document.querySelector(
+  '.pokemon-cards-container',
+);
+
+const returnPokemonCard = (imageURL, name, id) => {
   const $pokemonCard = document.createElement('article');
   $pokemonCard.className = 'card pokemon-card';
   $pokemonCard.setAttribute('id', id);
 
   const $pokemonCardImage = document.createElement('img');
   $pokemonCardImage.className = 'card-img-top pokemon-card__image';
-  $pokemonCardImage.src = getPokemonImage(id);
+  $pokemonCardImage.src = imageURL;
   $pokemonCardImage.setAttribute('data-bs-toggle', 'modal');
   $pokemonCardImage.setAttribute('data-bs-target', '#pokemon-modal');
 
@@ -34,37 +38,43 @@ const returnPokemonCard = (name, id) => {
   return $pokemonCard;
 };
 
-const $pokemonCardsContainer = document.querySelector(
-  '.pokemon-cards-container',
-);
-
-export const returnPokemonCards = (arrayPokemon) => {
-  const POKEMON_COUNT = 898;
-
+export const returnPokemonCards = ({ count, pokemons }) => {
   const $fragment = document.createDocumentFragment();
 
-  for (let i = 0; i < arrayPokemon.length; i += 1) {
-    const { name, url } = arrayPokemon[i];
-    const id = url.replace('v2', '').replace(/\D/g, '');
+  for (let i = 0; i < pokemons.length; i += 1) {
+    const { imageURL, name, id } = pokemons[i];
 
-    if (id > POKEMON_COUNT) break;
+    if (id > count) break;
 
-    const $pokemonCard = returnPokemonCard(name, id);
+    const $pokemonCard = returnPokemonCard(imageURL, name, id);
     $fragment.appendChild($pokemonCard);
   }
 
   return $fragment;
 };
 
-export const renderPokemonCards = async (pageNumber = 0, pokemonPerPage = 20) => {
+export const renderPokemonCards = async (
+  pageNumber = 0,
+  pokemonPerPage = 20,
+) => {
+  localStorage.clear();
   const resultsCache = searchPageOnStorage(pageNumber, pokemonPerPage);
 
   if (!resultsCache) {
-    const { results } = await getPokemonList(pageNumber, pokemonPerPage);
+    const { count, results } = await getPokemonList(
+      pageNumber,
+      pokemonPerPage,
+    );
 
-    savePageOnStorage(pageNumber, pokemonPerPage, results);
+    savePageOnStorage(
+      pageNumber,
+      pokemonPerPage,
+      mapPokemonList(count, results),
+    );
 
-    const $pokemonCards = returnPokemonCards(results);
+    const $pokemonCards = returnPokemonCards(
+      mapPokemonList(count, results),
+    );
 
     $pokemonCardsContainer.appendChild($pokemonCards);
 
